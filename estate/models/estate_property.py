@@ -6,6 +6,13 @@ class Property(models.Model):
 
   name = fields.Char('Name', required=True)
   description = fields.Text('Description')
+  active = fields.Boolean('Active', default=True)
+  state = fields.Selection(
+    string='State',
+    required=True,
+    copy=False,
+    default='new',
+    selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')])
   postcode = fields.Char('Postcode')
   date_availability = fields.Date('Date availability',
     copy=False,
