@@ -7,10 +7,12 @@ class Property(models.Model):
   name = fields.Char('Name', required=True)
   description = fields.Text('Description')
   postcode = fields.Char('Postcode')
-  date_availability = fields.Date('Date availability')
+  date_availability = fields.Date('Date availability',
+    copy=False,
+    default=fields.Date.add(fields.Date.today(), months=3))
   expected_price = fields.Float('Expected price', required=True)
-  selling_price = fields.Float('Selling price')
-  bedrooms = fields.Integer('Bedrooms')
+  selling_price = fields.Float('Selling price', readonly=True, copy=False)
+  bedrooms = fields.Integer('Bedrooms', default=2)
   living_area = fields.Integer('Living area')
   facades = fields.Integer('Facades')
   garage = fields.Boolean('Garage')
