@@ -23,3 +23,17 @@ jobs:
         run: |
           docker build -t freego555/odoo-test:latest .
           docker push freego555/odoo-test:latest
+
+      - name: Trigger updating on a server
+        id: updateDockerImageRequest
+        uses: fjogeleit/http-request-action@v1.16.2
+        with:
+          url: ${{vars.VPS_UPDATE_URL}}
+          method: 'GET'
+          bearerToken: ${{secrets.VPS_UPDATE_TOKEN}}
+          retry: ${{vars.VPS_UPDATE_RETRY_AMOUNT}}
+          retryWait: ${{vars.VPS_UPDATE_RETRY_WAIT_MS}}
+
+      - name: Show response of updating docker image request
+        run: |
+          echo ${{ steps.updateDockerImageRequest.outputs.response }}
