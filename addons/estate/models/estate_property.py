@@ -28,3 +28,6 @@ class Property(models.Model):
   garden_orientation = fields.Selection(
     string='Garden orientation',
     selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
+  property_type_id = fields.Many2one("estate.property.type", string="Property Type")
+  user_id = fields.Many2one("res.users", string="Salesperson", default=lambda self: self.env.uid)
+  partner_id = fields.Many2one("res.partner", string="Buyer", copy=False)
